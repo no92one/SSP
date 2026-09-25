@@ -1,24 +1,10 @@
-/*
-        STEN – SAX – PÅSE
-
-        Välj ditt drag!
-
-    [ STEN ] [ SAX ] [ PÅSE ]
-
-Du valde: Sten
-Datorn valde: Sax
-
-          DU VANN!
-
-Spelare: 1       Dator: 0
-
-        [ Nollställ ]
-*/
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
 import Title from './components/texts/Title';
 import CustomText from './components/texts/CustomText';
+import ChoiceButton from './components/buttons/ChoiceButton';
+import CustomButton from './components/buttons/CustomButton';
 
 export default function App() {
   return <>
@@ -30,8 +16,25 @@ export default function App() {
         <CustomText text={"Välj ditt drag!"} />
       </View>
 
+      <View style={styles.choiceArea}>
+        <ChoiceButton text={"Sten"} />
+        <ChoiceButton text={"Sax"} />
+        <ChoiceButton text={"Påse"} />
+      </View>
+
+      <View style={styles.outerRoundArea}>
+        <View style={styles.innerRoundArea}>
+          <CustomText text={"Spelare"} />
+          <CustomText text={"Sten"} />
+        </View>
+        <View style={styles.innerRoundArea}>
+          <CustomText text={"Datorn"} />
+          <CustomText text={"Sax"} />
+        </View>
+      </View>
+
       <View style={styles.infoText}>
-        <CustomText text={"Du van!"} />
+        <CustomText text={"Spelaren vann!"} />
       </View>
 
       <View style={styles.scoreArea}>
@@ -39,6 +42,11 @@ export default function App() {
         <CustomText text={"|"} />
         <CustomText text={"Dator: 0"} />
       </View>
+
+      <View style={styles.resetButton}>
+        <CustomButton text={"Nollställ"} />
+      </View>
+
     </View>
   </>;
 }
@@ -49,12 +57,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 100
   },
+  choiceArea: {
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
   infoText: {
     alignItems: "center",
     marginVertical: 50
   },
-  scoreArea: {
+  outerRoundArea: {
+    marginTop: 100,
     flexDirection: "row",
     justifyContent: "space-around"
+  },
+  innerRoundArea: {
+    alignItems: "center",
+    gap: 4,
+  },
+  scoreArea: {
+    marginVertical: 50,
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+  resetButton: {
+    alignItems: "center"
   }
 });
