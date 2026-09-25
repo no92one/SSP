@@ -1,7 +1,10 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 
-export default function CustomButton({ text }) {
-  return <Pressable style={styles.container}>
+export default function CustomButton({ text, pressHandler }) {
+  return <Pressable style={styles.container}
+    onPress={pressHandler}
+    android_ripple={{ color: "white" }}
+  >
     <Text style={styles.text}>{text}</Text>
   </Pressable>;
 }

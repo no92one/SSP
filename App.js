@@ -6,6 +6,8 @@ import CustomText from './components/texts/CustomText';
 import ChoiceButton from './components/buttons/ChoiceButton';
 import CustomButton from './components/buttons/CustomButton';
 import { useState } from 'react';
+import Round from './components/areas/Round';
+import Score from './components/areas/Score';
 
 /* 
   spelar val
@@ -21,9 +23,9 @@ import { useState } from 'react';
 */
 
 export default function App() {
-  const [playerPick, setPlayerPick] = useState("Sten");
-  const [computerPick, setComputerPick] = useState("Sax");
-  const [result, setResult] = useState("Spelaren vann!");
+  const [playerPick, setPlayerPick] = useState("-");
+  const [computerPick, setComputerPick] = useState("-");
+  const [result, setResult] = useState("");
   const [score, setScore] = useState({ player: 0, computer: 0 });
 
   function getComputerChoice() {
@@ -54,10 +56,25 @@ export default function App() {
 
   }
 
+  function reset() {
+    setScore({ player: 0, computer: 0 });
+    setPlayerPick("-");
+    setComputerPick("-");
+    setResult("");
+  }
+
   return <>
     <StatusBar style="auto" />
     <View style={styles.container}>
       <Title text={"STEN | SAX | PÅSE"} />
+
+      <Round playerPick={playerPick} computerPick={computerPick} />
+
+      <View style={styles.infoText}>
+        <CustomText text={result} />
+      </View>
+
+      <Score player={score.player} computer={score.computer} />
 
       <View style={styles.infoText}>
         <CustomText text={"Välj ditt drag!"} />
@@ -69,29 +86,8 @@ export default function App() {
         <ChoiceButton text={"Påse"} handlePress={battle} />
       </View>
 
-      <View style={styles.outerRoundArea}>
-        <View style={styles.innerRoundArea}>
-          <CustomText text={"Spelare"} />
-          <CustomText text={playerPick} />
-        </View>
-        <View style={styles.innerRoundArea}>
-          <CustomText text={"Datorn"} />
-          <CustomText text={computerPick} />
-        </View>
-      </View>
-
-      <View style={styles.infoText}>
-        <CustomText text={result} />
-      </View>
-
-      <View style={styles.scoreArea}>
-        <CustomText text={"Spelare: " + score.player} />
-        <CustomText text={"|"} />
-        <CustomText text={"Dator: " + + score.computer} />
-      </View>
-
       <View style={styles.resetButton}>
-        <CustomButton text={"Nollställ"} />
+        <CustomButton text={"Nollställ"} pressHandler={reset} />
       </View>
 
     </View>
@@ -101,30 +97,17 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#eecd14',
     paddingTop: 100
   },
   choiceArea: {
+    marginBottom: 50,
     flexDirection: "row",
     justifyContent: "space-around"
   },
   infoText: {
     alignItems: "center",
-    marginVertical: 50
-  },
-  outerRoundArea: {
-    marginTop: 100,
-    flexDirection: "row",
-    justifyContent: "space-around"
-  },
-  innerRoundArea: {
-    alignItems: "center",
-    gap: 4,
-  },
-  scoreArea: {
-    marginVertical: 50,
-    flexDirection: "row",
-    justifyContent: "space-around"
+    marginVertical: 30
   },
   resetButton: {
     alignItems: "center"
